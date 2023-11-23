@@ -31,7 +31,9 @@ export const ControlPanel = observer(() => {
                                 ? `${model.MX}x${model.MY}x${model.MZ}`
                                 : `${model.MX}x${model.MY}`}
                             {"  "}
-                            seed: {model.seed}
+                            seed: <input type="text" value={model.seed || ''} onChange={(ev)=>{
+                                model.set_seed(ev.target.value)
+                            }} /> {model.seed}
                         </p>
                         {model.loading ? (
                             <p>loading...</p>

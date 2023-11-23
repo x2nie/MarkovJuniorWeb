@@ -121,9 +121,9 @@ export class Model {
     private _timer = 0;
     private _steps = -1;
 
-    private default3DrenderType = VoxelPathTracer.supported
+    private default3DrenderType = /*VoxelPathTracer.supported
         ? "voxel"
-        : "isometric";
+        :*/ "isometric";
     private rendered = 0;
 
     @observable
@@ -240,7 +240,7 @@ export class Model {
             this._speed = 0;
             this._delay = Math.abs(n);
         } else {
-            this._speed = ~~n;
+            this._speed = Math.floor(n);
             this._delay = 0;
         }
     }
@@ -258,6 +258,11 @@ export class Model {
     @computed
     public get seed() {
         return this._seed;
+    }
+
+    @action
+    public set_seed(seed:number|string) {
+        this._seed = Number(seed)
     }
 
     @action
@@ -379,6 +384,8 @@ export class Model {
             }
 
             console.log(`Time: ${this._timer.toFixed(2)}ms`);
+            console.log(`Steps(maybe): ${this.rendered} ${state.length}`);
+            this.rendered = 0
         } else {
             if (!once)
                 this._delay
