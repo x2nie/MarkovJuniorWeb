@@ -1,4 +1,4 @@
-import { PRNG } from "seedrandom";
+import { Random } from "../random";
 
 interface WritableArray<T> {
     readonly length: number;
@@ -97,7 +97,7 @@ export class Helper {
 
     public static shuffleFill<T extends WritableArray<number>>(
         array: T,
-        rng: PRNG
+        rng: Random
     ) {
         for (let i = 0; i < array.length; i++) {
             const j = range(rng, i + 1);
@@ -106,7 +106,7 @@ export class Helper {
         }
     }
 
-    public static pick<E, T extends ArrayLike<E>>(array: T, rng: PRNG) {
+    public static pick<E, T extends ArrayLike<E>>(array: T, rng: Random) {
         return array[range(rng, array.length)];
     }
 
@@ -177,7 +177,7 @@ export class Helper {
 }
 
 // exclusive
-export const range = (rng: PRNG, upper: number) => Math.floor(rng() * upper);
+export const range = (rng: Random, upper: number) => Math.floor(rng.NextDouble() * upper);
 
 export type vec3 = [number, number, number];
 export type vec4 = [number, number, number, number];

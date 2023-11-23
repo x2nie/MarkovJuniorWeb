@@ -1,4 +1,4 @@
-import seedrandom, { PRNG } from "seedrandom";
+import { Random } from "./random";
 import { Grid } from "./grid";
 import { vec3 } from "./helpers/helper";
 import { SymmetryHelper } from "./helpers/symmetry";
@@ -12,7 +12,7 @@ export class Interpreter {
     public startgrid: Grid;
 
     origin: boolean;
-    public rng: PRNG;
+    public rng: Random;
 
     public readonly changes: vec3[] = [];
     public readonly first: number[] = [];
@@ -59,7 +59,7 @@ export class Interpreter {
         seed: number,
         steps: number
     ): Generator<[Uint8Array, string, number, number, number]> {
-        this.rng = seedrandom(seed.toString());
+        this.rng = new Random(seed);
         this.grid = this.startgrid;
         this.grid.clear();
 

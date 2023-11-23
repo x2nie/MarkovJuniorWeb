@@ -27,7 +27,7 @@ export class ParallelNode extends RuleNode {
         const grid = this.grid;
 
         const rule = this.rules[r];
-        if (ip.rng.double() > rule.p) return;
+        if (ip.rng.NextDouble() > rule.p) return;
         this.last[r] = 1;
         const { MX, MY } = grid;
 

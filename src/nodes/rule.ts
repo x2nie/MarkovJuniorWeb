@@ -242,7 +242,7 @@ export abstract class RuleNode extends Node {
                         this instanceof AllNode,
                         this.limit,
                         this.depthCoefficient,
-                        this.ip.rng.int32()
+                        this.ip.rng.Next()
                     );
                 }
 

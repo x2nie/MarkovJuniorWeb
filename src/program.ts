@@ -1,4 +1,4 @@
-import seedrandom from "seedrandom";
+import { Random } from "./random";
 import {
     action,
     computed,
@@ -45,7 +45,7 @@ export class Program {
     @observable
     public static palette: Map<string, Uint8ClampedArray> = new Map();
 
-    public static meta = seedrandom();
+    public static meta = new Random();
 
     @action
     public static loadPalette() {
@@ -205,7 +205,7 @@ export class Model {
                 for (const { state } of this.nodes) state.sync();
 
                 this.renderer.palette = customPalette;
-                this._seed = seeds?.[0] || Program.meta.int32();
+                this._seed = seeds?.[0] || Program.meta.Next();
             });
 
             const [state, chars, FX, FY, FZ] = this.ip.state();
@@ -304,7 +304,7 @@ export class Model {
 
     @action
     public randomize() {
-        this._seed = Program.meta.int32();
+        this._seed = Program.meta.Next();
     }
 
     private loop(once = false, render = true) {

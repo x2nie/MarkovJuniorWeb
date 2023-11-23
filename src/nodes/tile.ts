@@ -1,4 +1,5 @@
-import { alea } from "seedrandom";
+// import { alea } from "seedrandom";
+import { Random } from "../random";
 import { Grid } from "../grid";
 import { Array2D, Array3Dflat, BoolArray3D } from "../helpers/datastructures";
 import { Helper } from "../helpers/helper";
@@ -10,7 +11,8 @@ import { WFCNode } from "./";
 const FALSE = (_) => false;
 
 export class TileNode extends WFCNode {
-    protected static state_rng = alea("", { entropy: true });
+    // protected static state_rng = alea("", { entropy: true });
+    protected static state_rng = new Random();
 
     private tiledata: Uint8Array[];
 
@@ -475,7 +477,7 @@ export class TileNode extends WFCNode {
                                 let max = -1.0;
                                 let argmax = 0xff;
                                 for (let c = 0; c < v.length; c++) {
-                                    const vote = v[c] + 0.1 * rng.double();
+                                    const vote = v[c] + 0.1 * rng.NextDouble();
                                     if (vote > max) {
                                         argmax = c;
                                         max = vote;
