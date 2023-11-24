@@ -122,6 +122,7 @@ const UnionCell = observer(
 const RuleViz = observer(
     ({ rule, children }: { rule: Rule; children?: React.ReactNode }) => {
         const [IMX, IMY, IMZ, OMX, OMY, OMZ] = rule.IO_DIM;
+        const dx = 7, dy = 7;
 
         const iGrid = useMemo(
             () =>
@@ -129,13 +130,14 @@ const RuleViz = observer(
                     <table
                         key={z}
                         style={{
-                            top: `${z * 5}px`,
-                            left: `${z * 5}px`,
+                            top: `${z * dy}px`,
+                            left: `${z * dx}px`,
                             zIndex: IMZ - z,
-                            opacity: z ? (IMZ - z) / IMZ / 2 + 0.25 : 1,
+                            // opacity: z < 0 ? (IMZ - z) / IMZ / 2 + 0.25 : 1,
                         }}
                     >
                         <tbody>
+                            {/* <tr><td>{JSON.stringify(rule, null, 2)}</td></tr> */}
                             {Array.from({ length: IMY }, (_, y) => (
                                 <tr key={y}>
                                     {Array.from({ length: IMX }, (_, x) => (
@@ -144,7 +146,7 @@ const RuleViz = observer(
                                             wildcard={rule.wildcard}
                                             value={
                                                 rule.input[
-                                                    x + y * IMX + z * IMX * IMY
+                                                    x + y * IMX + (IMZ-1 - z) * IMX * IMY
                                                 ]
                                             }
                                         />
@@ -163,10 +165,10 @@ const RuleViz = observer(
                     <table
                         key={z}
                         style={{
-                            top: `${z * 5}px`,
-                            left: `${z * 5}px`,
+                            top: `${z * dy}px`,
+                            left: `${z * dx}px`,
                             zIndex: OMZ - z,
-                            opacity: z ? (OMZ - z) / OMZ / 2 + 0.25 : 1,
+                            // opacity: z ? (OMZ - z) / OMZ / 2 + 0.25 : 1,
                         }}
                     >
                         <tbody>
@@ -177,7 +179,7 @@ const RuleViz = observer(
                                             key={x}
                                             value={
                                                 rule.output[
-                                                    x + y * OMX + z * OMX * OMY
+                                                    x + y * OMX + (OMZ-1 - z) * OMX * OMY
                                                 ]
                                             }
                                         />
