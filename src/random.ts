@@ -1,9 +1,12 @@
 /**
- * Original Code: https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/Random.cs
+ * Original Code: 
+ *      https://github.com/microsoft/referencesource/blob/master/mscorlib/system/random.cs
+ *      https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/Random.cs
  * Converted to TypeScript By: x2nie
  * Date: 2023-11-19
  * 
  */
+
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
@@ -36,8 +39,8 @@ export class Random {
         }
         Seed = Math.floor(Seed); // = int()Seed
 
-        let ii;
-        let mj, mk;
+        let ii : number;
+        let mj: number, mk : number;
         //Initialize our Seed array.
         //This algorithm comes from Numerical Recipes in C (2nd Ed.)
         let subtraction = (Seed == Int32.MinValue) ? Int32.MaxValue : Math.abs(Seed);
@@ -66,12 +69,10 @@ export class Random {
         if (maxValue < 0) {
             throw new Error("ArgumentOutOfRange_MustBePositive");
         }
-        // Contract.EndContractBlock();
         return Math.floor(this.Sample() * maxValue);
     }
 
     public NextDouble(): number {
-        // return 0.9999
         return this.Sample();
     }
 
@@ -81,12 +82,11 @@ export class Random {
         // return (this.InternalSample()*(1.0/MBIG));
         const jsFloat = this.InternalSample() * (1.0 / MBIG);
         const csharpDouble = jsFloat.toPrecision(15); //got string
-        const n = Number(csharpDouble); // will identical to C# value
-        return n;
+        return Number(csharpDouble); // will identical to C# value
     }
 
     private InternalSample(): number { // int
-        let retVal;
+        let retVal : number;
         let locINext = this.inext;
         let locINextp = this.inextp;
 
