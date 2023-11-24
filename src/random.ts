@@ -11,31 +11,31 @@ const Int32 = {
     MinValue: Math.pow(2, 31) * -1,
     MaxValue: Math.pow(2, 31) - 1
 }
-const MBIG =  Int32.MaxValue;
+const MBIG = Int32.MaxValue;
 const MSEED = 161803398;
 
 export class Random {
     //
     // Member Variables
     //
-    private inext:number;
-    private inextp:number;
+    private inext: number;
+    private inextp: number;
     //private int[] SeedArray = new int[56];
-    private SeedArray : Int32Array;
+    private SeedArray: Int32Array;
 
     // public Random(Seed:number) {}
-    constructor(Seed:number|undefined=undefined) {
+    constructor(Seed: number | undefined = undefined) {
         this.inext = 0;
         this.inextp = 21;
         this.SeedArray = new Int32Array(56);
         this.SeedArray.fill(0);
 
-        if(Seed===undefined){
+        if (Seed === undefined) {
             //this(Environment.TickCount);
             Seed = Math.floor(Math.random() * MBIG);
         }
         Seed = Math.floor(Seed); // = int()Seed
-        
+
         let ii;
         let mj, mk;
         //Initialize our Seed array.
@@ -59,50 +59,50 @@ export class Random {
         }
     }
 
-    public Next(maxValue:number=0):number {
-        if(maxValue==0)
+    public Next(maxValue: number = 0): number {
+        if (maxValue == 0)
             return this.InternalSample()
 
-        if (maxValue<0) {
+        if (maxValue < 0) {
             throw new Error("ArgumentOutOfRange_MustBePositive");
         }
         // Contract.EndContractBlock();
-        return Math.floor(this.Sample()*maxValue);
+        return Math.floor(this.Sample() * maxValue);
     }
 
-    public NextDouble():number {
+    public NextDouble(): number {
         // return 0.9999
         return this.Sample();
     }
 
-    protected Sample():number { //Float.double
+    protected Sample(): number { //Float.double
         //Including this division at the end gives us significantly improved
         //random number distribution.
         // return (this.InternalSample()*(1.0/MBIG));
-        const jsFloat = this.InternalSample()*(1.0/MBIG);
+        const jsFloat = this.InternalSample() * (1.0 / MBIG);
         const csharpDouble = jsFloat.toPrecision(15); //got string
         const n = Number(csharpDouble); // will identical to C# value
         return n;
     }
 
-    private InternalSample():number { // int
+    private InternalSample(): number { // int
         let retVal;
         let locINext = this.inext;
         let locINextp = this.inextp;
 
-        if (++locINext >=56) locINext=1;
-        if (++locINextp>= 56) locINextp = 1;
-        
-        retVal = this.SeedArray[locINext]-this.SeedArray[locINextp];
+        if (++locINext >= 56) locINext = 1;
+        if (++locINextp >= 56) locINextp = 1;
 
-        if (retVal == MBIG) retVal--;          
-        if (retVal<0) retVal+=MBIG;
-        
-        this.SeedArray[locINext]=retVal;
+        retVal = this.SeedArray[locINext] - this.SeedArray[locINextp];
+
+        if (retVal == MBIG) retVal--;
+        if (retVal < 0) retVal += MBIG;
+
+        this.SeedArray[locINext] = retVal;
 
         this.inext = locINext;
         this.inextp = locINextp;
-                  
+
         return retVal;
     }
 }
