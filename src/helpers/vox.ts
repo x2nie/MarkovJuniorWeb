@@ -69,8 +69,8 @@ export class VoxHelper {
                     const v = state[i];
                     if (v) {
                         const o = voxels << 2;
-                        voxelBuf[o + 0] = x;
-                        voxelBuf[o + 1] = y;
+                        voxelBuf[o + 0] = y;
+                        voxelBuf[o + 1] = x;
                         voxelBuf[o + 2] = z;
                         voxelBuf[o + 3] = v + 1;
                         voxels++;
