@@ -122,7 +122,7 @@ const UnionCell = observer(
 const RuleViz = observer(
     ({ rule, children }: { rule: Rule; children?: React.ReactNode }) => {
         const [IMX, IMY, IMZ, OMX, OMY, OMZ] = rule.IO_DIM;
-        const dx = 7, dy = 7;
+        const dx = 4, dy = 7;
 
         const iGrid = useMemo(
             () =>
