@@ -2,7 +2,7 @@ import { Random } from "../random";
 import { Field } from "../field";
 import { Grid } from "../grid";
 import { BoolArray2D } from "../helpers/datastructures";
-import { range, vec4 } from "../helpers/helper";
+import { vec4 } from "../helpers/helper";
 import { Observation } from "../observation";
 import { Rule } from "../rule";
 
@@ -154,7 +154,7 @@ export class OneNode extends RuleNode {
                 : INVALID;
         } else {
             while (this.matchCount > 0) {
-                const matchIndex = range(rng, this.matchCount);
+                const matchIndex = rng.Next(this.matchCount);
                 const offset0 = matchIndex << 2;
 
                 const [r, x, y, z] = matches.subarray(offset0, offset0 + 4);

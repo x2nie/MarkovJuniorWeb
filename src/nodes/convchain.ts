@@ -1,5 +1,5 @@
 import { Grid } from "../grid";
-import { Helper, range } from "../helpers/helper";
+import { Helper } from "../helpers/helper";
 import { Loader } from "../helpers/loader";
 import { SymmetryHelper } from "../helpers/symmetry";
 import { Node, RunState } from "./";
@@ -104,7 +104,7 @@ export class ConvChainNode extends Node {
             let anySubstrate = false;
             for (let i = 0; i < substrate.length; i++)
                 if (state[i] === substrateColor) {
-                    state[i] = range(ip.rng, 2) == 0 ? c0 : c1;
+                    state[i] = ip.rng.Next(2) == 0 ? c0 : c1;
                     substrate[i] = 1;
                     anySubstrate = true;
                 }
@@ -113,7 +113,7 @@ export class ConvChainNode extends Node {
         }
 
         for (let k = 0; k < state.length; k++) {
-            let r = range(ip.rng, state.length);
+            let r = ip.rng.Next(state.length);
             if (!substrate[r]) continue;
 
             const x = r % MX,

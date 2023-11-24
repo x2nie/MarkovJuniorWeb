@@ -100,14 +100,14 @@ export class Helper {
         rng: Random
     ) {
         for (let i = 0; i < array.length; i++) {
-            const j = range(rng, i + 1);
+            const j = rng.Next(i + 1);
             array[i] = array[j];
             array[j] = i;
         }
     }
 
     public static pick<E, T extends ArrayLike<E>>(array: T, rng: Random) {
-        return array[range(rng, array.length)];
+        return array[rng.Next(array.length)];
     }
 
     public static indexBoolArr(array: Uint8Array) {
@@ -175,9 +175,6 @@ export class Helper {
         return str;
     }
 }
-
-// exclusive
-export const range = (rng: Random, upper: number) => Math.floor(rng.NextDouble() * upper);
 
 export type vec3 = [number, number, number];
 export type vec4 = [number, number, number, number];
