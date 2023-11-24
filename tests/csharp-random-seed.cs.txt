@@ -1,0 +1,21 @@
+using System;
+
+//* run it online at: https://www.w3schools.com/cs/trycs.php?filename=demo_compiler
+
+namespace HelloWorld
+{
+  class Program
+  {
+    static void Main(string[] args)
+    {
+      //Console.WriteLine("[");    
+      Random rnd = new Random(145);
+
+      for (int j = 0; j < 59; j++)
+      {
+          Console.WriteLine(String.Format("    {0:F20}," ,rnd.NextDouble()));
+      }
+      
+    }
+  }
+}

@@ -20,13 +20,14 @@ export class Random {
     //
     private inext:number;
     private inextp:number;
-    private SeedArray = new Array(56);
     //private int[] SeedArray = new int[56];
+    private SeedArray : Int32Array;
 
     // public Random(Seed:number) {}
     constructor(Seed:number|undefined=undefined) {
         this.inext = 0;
         this.inextp = 21;
+        this.SeedArray = new Int32Array(56);
         this.SeedArray.fill(0);
 
         if(Seed===undefined){
@@ -56,9 +57,6 @@ export class Random {
                 if (this.SeedArray[i] < 0) this.SeedArray[i] += MBIG;
             }
         }
-        this.inext = 0;
-        this.inextp = 21;
-        // Seed = 1;
     }
 
     public Next(maxValue:number=0):number {
