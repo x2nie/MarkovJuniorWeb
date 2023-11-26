@@ -291,6 +291,13 @@ export class Model {
     }
 
     @action
+    public restart() {
+        this._paused = true;
+        this._curr = null;
+        this.start()
+    }
+
+    @action
     public pause() {
         this._paused = true;
     }
@@ -477,6 +484,7 @@ export class Model {
     @action
     public stop() {
         this.pause();
+        this._curr = null;
         this.renderer.dispose();
     }
 }

@@ -57,6 +57,9 @@ body,
 h1 {
     text-align: center;
 }
+h4 {
+    margin: 2px 0;
+}
 
 #left-column {
     width: 25%;
@@ -243,15 +246,16 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 #palette-container {
-    padding: 25px;
+    padding: 5px;
 }
 
 #state-viz {
     max-height: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
-    padding: 25px;
+    padding: 25px 0;
     position: relative;
+    border: 1px solid rgb(94, 94, 94);
 }
 
 .tooltip {

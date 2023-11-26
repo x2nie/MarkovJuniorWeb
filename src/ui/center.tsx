@@ -128,6 +128,21 @@ export const ControlPanel = observer(() => {
                                         ></i>
                                     </button>
                                 )}
+                                    <button id="restart" disabled={!model.running}
+                                        onClick={() => model.restart()}
+                                    >
+                                        <i className="fa-solid fa-undo"
+                                            data-tip="Restart"
+                                        ></i>
+                                    </button>
+                                    
+                                    <button id="stop" disabled={!model.running}
+                                        onClick={() => model.stop()}
+                                    >
+                                        <i className="fa-solid fa-stop"
+                                            data-tip="Stop"
+                                        ></i>
+                                    </button>
                             </div>
                         )}
                     </>
