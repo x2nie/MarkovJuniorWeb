@@ -31,9 +31,9 @@ export class Random {
 
         if(Seed===undefined){
             //this(Environment.TickCount);
-            Seed = Math.floor(Math.random() * MBIG);
+            Seed = ~~(Math.random() * MBIG);
         }
-        Seed = Math.floor(Seed); // = int()Seed
+        Seed = ~~(Seed); // = int()Seed
         
         let ii;
         let mj, mk;
@@ -69,7 +69,7 @@ export class Random {
             throw new Error("ArgumentOutOfRange_MustBePositive");
         }
         // Contract.EndContractBlock();
-        return Math.floor(this.Sample()*maxValue);
+        return ~~(this.Sample()*maxValue);
     }
 
     public NextDouble():number {

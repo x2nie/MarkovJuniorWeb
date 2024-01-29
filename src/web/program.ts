@@ -195,9 +195,9 @@ export class Model {
     private _timer = 0;
     private _steps = -1;
 
-    private default3DrenderType = VoxelPathTracer.supported
+    private default3DrenderType = /*VoxelPathTracer.supported
         ? "voxel"
-        : "isometric";
+        : */"isometric";
     private rendered = 0;
     private lastLoop = 0;
 
