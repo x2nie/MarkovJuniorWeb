@@ -12,7 +12,9 @@ const Int32 = {
     MaxValue: Math.pow(2, 31) - 1
 }
 const MBIG =  Int32.MaxValue;
+const OneBIGth =  1.0/MBIG;
 const MSEED = 161803398;
+const CLAMPER = new Float32Array(1)
 
 export class Random {
     //
@@ -20,26 +22,24 @@ export class Random {
     //
     private inext:number;
     private inextp:number;
-    private SeedArray = new Array(56);
+    private SeedArray = new Int32Array(56);
     //private int[] SeedArray = new int[56];
 
     // public Random(Seed:number) {}
     constructor(Seed:number|undefined=undefined) {
-        this.inext = 0;
-        this.inextp = 21;
         this.SeedArray.fill(0);
 
         if(Seed===undefined){
             //this(Environment.TickCount);
-            Seed = ~~(Math.random() * MBIG);
+            Seed = Math.floor(Math.random() * MBIG);
         }
-        Seed = ~~(Seed); // = int()Seed
+        Seed = Math.floor(Seed); // = int()Seed
         
-        let ii;
-        let mj, mk;
+        let ii:number;
+        let mj:number, mk:number;
         //Initialize our Seed array.
         //This algorithm comes from Numerical Recipes in C (2nd Ed.)
-        let subtraction = (Seed == Int32.MinValue) ? Int32.MaxValue : Math.abs(Seed);
+        const subtraction = (Seed == Int32.MinValue) ? Int32.MaxValue : Math.abs(Seed);
         mj = MSEED - subtraction;
         this.SeedArray[55] = mj;
         mk = 1;
@@ -69,7 +69,7 @@ export class Random {
             throw new Error("ArgumentOutOfRange_MustBePositive");
         }
         // Contract.EndContractBlock();
-        return ~~(this.Sample()*maxValue);
+        return Math.floor(this.Sample()*maxValue);
     }
 
     public NextDouble():number {
@@ -80,15 +80,20 @@ export class Random {
     protected Sample():number { //Float.double
         //Including this division at the end gives us significantly improved
         //random number distribution.
-        // return (this.InternalSample()*(1.0/MBIG));
-        const jsFloat = this.InternalSample()*(1.0/MBIG);
-        const csharpDouble = jsFloat.toPrecision(15); //got string
-        const n = Number(csharpDouble); // will identical to C# value
-        return n;
+        // return this.InternalSample()*OneBIGth;
+        CLAMPER[0] = this.InternalSample()*OneBIGth;
+        return CLAMPER[0]
+
+        // below also works, but with a big slower
+
+        // const jsFloat = this.InternalSample()*OneBIGth;
+        // const csharpDouble = jsFloat.toPrecision(15); //got string
+        // const n = Number(csharpDouble); // will identical to C# value
+        // return n;
     }
 
     private InternalSample():number { // int
-        let retVal;
+        let retVal:number;
         let locINext = this.inext;
         let locINextp = this.inextp;
 
